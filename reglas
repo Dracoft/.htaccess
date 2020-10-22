@@ -1,0 +1,24 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+#Remover las extenciones php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+#RewriteRule ^([a-z]+)/?$ $1.php [NC]
+
+#Remover las extenciones html
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html
+#RewriteRule ^([a-z]+)/?$ $1.html [NC]
+
+#Seguridad en las cookies
+</IfModule>
+php_value session.cookie_httponly 1
+php_value session.cookie_secure 1
+
+#Bloqueador el acceso a carpetas index
+Options All -indexes 
+#Hacer la redireccion a la pagina
+ErrorDocument 403 /403.php
